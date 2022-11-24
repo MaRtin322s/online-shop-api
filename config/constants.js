@@ -1,1 +1,1 @@
-exports.CONNECTIONS_STRING = 'mongodb://localhost:27017/';
+exports.CONNECTION_STRING = 'mongodb://localhost:27017/online-shop';
