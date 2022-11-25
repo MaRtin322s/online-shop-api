@@ -28,4 +28,10 @@ router.post('/login', (req, res) => {
     
 });
 
+router.get('/logout', (req, res) => {
+    if (req.headers['x-authorization']) {
+        res.json();
+    }
+});
+
 module.exports = router;
