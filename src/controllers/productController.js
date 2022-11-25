@@ -7,14 +7,21 @@ router.post('/products', async (req, res) => {
     if (Object.values(data).some(x => x == '')) {
         res.json({ message: 'All fields are required'});
     } else {
-        const product = await productService.createProduct(data);
+        const product = await productService.createProduct({
+            brand,
+            model,
+            imageUrl,
+            release,
+            designer,
+            value
+        });
         res.json(product);
     }
 });
 
 router.get('/products', async (req, res) => {
     const allProducts = await productService.getAll();
-    console.log(allProducts); 
+    res.json(allProducts); 
 });
 
 module.exports = router;
