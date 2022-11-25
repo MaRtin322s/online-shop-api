@@ -3,6 +3,7 @@ const productService = require('../services/productService');
 
 router.post('/products', async (req, res) => {
     const data = { brand, model, imageUrl, release, designer, value } = req.body;
+    const _ownerId = req.user;
 
     if (Object.values(data).some(x => x == '')) {
         res.json({ message: 'All fields are required'});
@@ -13,7 +14,8 @@ router.post('/products', async (req, res) => {
             imageUrl,
             release,
             designer,
-            value
+            value,
+            _ownerId
         });
         res.json(product);
     }
@@ -22,6 +24,12 @@ router.post('/products', async (req, res) => {
 router.get('/products', async (req, res) => {
     const allProducts = await productService.getAll();
     res.json(allProducts); 
+});
+
+router.get('/products/:productId', async (req, res) => {
+    const productId = req.params.productId;
+    const product = await productService.getOne(productId);
+    res.json(product); 
 });
 
 module.exports = router;

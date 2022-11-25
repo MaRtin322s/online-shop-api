@@ -24,6 +24,10 @@ const productSchema = new mongoose.Schema({
     value: {
         type: Number,
         required: true
+    },
+    _ownerId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
     }
 });
 
