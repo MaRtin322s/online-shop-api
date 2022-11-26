@@ -40,4 +40,10 @@ router.put('/products/:productId', async (req, res) => {
     res.json(edittedProduct);
 });
 
+router.delete('/products/:productId', async (req, res) => {
+    const productId = req.params.productId;
+    const deletedProduct = await productService.deleteProduct(productId);
+    res.json(deletedProduct);
+});
+
 module.exports = router;
