@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { loginUser } = require('../services/authService');
 const productService = require('../services/productService');
 
 router.post('/products', async (req, res) => {
@@ -44,6 +45,15 @@ router.delete('/products/:productId', async (req, res) => {
     const productId = req.params.productId;
     const deletedProduct = await productService.deleteProduct(productId);
     res.json(deletedProduct);
+});
+
+router.get('*', async (req, res) => {
+    const queryString = req.query.where.split('"')[1];
+    const products = await productService.getAll();
+    const searchedProducts = products
+        .filter(x => x.brand.toLowerCase().includes(queryString.toLowerCase()) 
+        || x.brand.toLowerCase() === queryString.toLowerCase());
+    res.json(searchedProducts);
 });
 
 module.exports = router;
