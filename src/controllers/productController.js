@@ -32,4 +32,12 @@ router.get('/products/:productId', async (req, res) => {
     res.json(product); 
 });
 
+router.put('/products/:productId', async (req, res) => {
+    const productId = req.params.productId;
+    const _ownerId = req.user;
+    const prodcutData = req.body;
+    const edittedProduct = await productService.editProduct(productId, {... prodcutData, _ownerId });
+    res.json(edittedProduct);
+});
+
 module.exports = router;
